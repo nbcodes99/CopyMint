@@ -26,14 +26,33 @@ const config = {
           "0%": { transform: "scale(0.95)", opacity: "0" },
           "100%": { transform: "scale(1)", opacity: "1" },
         },
+        bounce: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-8px)" },
+        },
+        gridMove: {
+          "0%": { backgroundPosition: "0 0, 0 0, 0 0" },
+          "100%": { backgroundPosition: "40px 40px, 40px 0, 0 40px" },
+        },
       },
       animation: {
         "fade-in": "fadeIn 0.5s ease-in-out",
         "slide-up": "slideUp 0.5s ease-out",
         "slide-down": "slideDown 0.5s ease-out",
-        "bounce-icon": "bounceIcon 1s infinite",
         "pulse-slow": "pulseSlow 2s ease-in-out infinite",
         "scale-in": "scaleIn 0.4s ease-out",
+        "grid-scroll": "gridMove 10s linear infinite",
+        bounce: "bounce 2s ease-in-out infinite",
+      },
+      backgroundImage: {
+        "grid-lines": `
+          radial-gradient(circle at center, rgba(0, 255, 0, 0.1), transparent 60%),
+          linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
+        `,
+      },
+      backgroundSize: {
+        "grid-lines": "100% 100%, 40px 40px, 40px 40px",
       },
     },
   },
