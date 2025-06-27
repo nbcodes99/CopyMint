@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Theme, ThemePanel } from "@radix-ui/themes";
+import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
+import SessionWrapper from "./components/SessionWrapper";
 import Navbar from "./components/Navbar";
 
 const geistSans = Geist({
@@ -25,19 +26,20 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
-        <Theme appearance="dark" accentColor="grass" grayColor="sage">
-          <main>{children}</main>
-          {/* <ThemePanel /> */}
-        </Theme>
+        <SessionWrapper>
+          <Navbar />
+          <Theme appearance="dark" accentColor="grass" grayColor="sage">
+            <main>{children}</main>
+          </Theme>
+        </SessionWrapper>
       </body>
     </html>
   );
