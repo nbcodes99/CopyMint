@@ -4,10 +4,9 @@ import { Button } from "@radix-ui/themes";
 
 export default function HeroSection() {
   return (
-    <section className="flex items-center px-6 md:px-24 py-20">
+    <section className="relative flex items-center px-6 md:px-24 py-20 overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,255,0,0.1),_transparent_60%)] pointer-events-none z-0" />
-
-      <div className="absolute inset-0 z-0 pointer-events-none [background-image:linear-gradient(transparent_39px,_#2a2a2a_40px),_linear-gradient(90deg,_transparent_39px,_#2a2a2a_40px)] [background-size:40px_40px] opacity-60 animate-pulse-slow !bg-transparent" />
+      <div className="absolute inset-0 pointer-events-none [background-image:linear-gradient(transparent_39px,_#2a2a2a_40px),_linear-gradient(90deg,_transparent_39px,_#2a2a2a_40px)] [background-size:40px_40px] opacity-50 animate-pulse-slow !bg-transparent z-0" />
 
       <div className="container mx-auto z-10 flex flex-col md:flex-row items-center justify-between">
         <div className="max-w-xl flex flex-col items-center md:items-start text-center md:text-left animate-slide-up px-3">

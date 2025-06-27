@@ -44,16 +44,6 @@ const config = {
         "grid-scroll": "gridMove 10s linear infinite",
         bounce: "bounce 2s ease-in-out infinite",
       },
-      backgroundImage: {
-        "grid-lines": `
-          radial-gradient(circle at center, rgba(0, 255, 0, 0.1), transparent 60%),
-          linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
-        `,
-      },
-      backgroundSize: {
-        "grid-lines": "100% 100%, 40px 40px, 40px 40px",
-      },
     },
   },
   plugins: ["@tailwindcss/postcss"],

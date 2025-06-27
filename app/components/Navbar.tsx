@@ -23,12 +23,13 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 inset-x-0 z-50">
+      <div className="absolute inset-0 pointer-events-none [background-image:linear-gradient(transparent_39px,_#2a2a2a_40px),_linear-gradient(90deg,_transparent_39px,_#2a2a2a_40px)] [background-size:40px_40px] opacity-50 animate-pulse-slow !bg-transparent z-0" />
       <nav className="flex items-center justify-between px-6 py-10 md:px-24">
         <Link href="/" className="text-zinc-200 font-bold text-base md:text-xl">
           Copy<span className="text-green-600">Mint</span>
         </Link>
 
-        <ul className={isOpen ? "open animate-zoomIn" : ""}>
+        <ul className={isOpen ? "open animate-scaleIn" : ""}>
           {links.map((link) => (
             <li key={link.href}>
               <Link
