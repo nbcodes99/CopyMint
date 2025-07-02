@@ -1,26 +1,26 @@
 @import "tailwindcss";
 
-:root {
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
-}
+} */
 
-@theme inline {
+/* @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
+} */
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
-  background-color: #0a0a0a;
+  /* background-color: #0a0a0a; */
   background-image: linear-gradient(
       rgba(255, 255, 255, 0.05) 1px,
       transparent 1px
@@ -30,7 +30,18 @@ body {
   background-position: center;
   font-family: Arial, Helvetica, sans-serif;
 }
-
+.feature-card {
+  background-color: rgba(
+    18,
+    18,
+    18,
+    0.6
+  ); /* Semi-transparent dark background */
+  backdrop-filter: blur(12px); /* Frosted glass blur */
+  -webkit-backdrop-filter: blur(12px); /* For Safari */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Optional subtle border */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
 ul {
   display: flex;
   gap: 20px;
@@ -53,8 +64,17 @@ ul.open {
     right: 0%;
     margin: 0%;
     padding: 100px 20px;
-    background-color: #121212;
-    z-index: 400;
+    background-color: rgba(
+      18,
+      18,
+      18,
+      0.6
+    ); /* Semi-transparent dark background */
+    backdrop-filter: blur(12px); /* Frosted glass blur */
+    -webkit-backdrop-filter: blur(12px); /* For Safari */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Optional subtle border */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    z-index: 10;
     height: fit-content;
     width: 100%;
   }

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import icon1 from "../assets/icon1.png";
 import { Button } from "@radix-ui/themes";
+import Link from "next/link";
 
 export default function HeroSection() {
   return (
@@ -26,10 +27,10 @@ export default function HeroSection() {
 
           <div className="flex gap-4">
             <Button variant="solid" size="3" color="green">
-              Get Started
+              <Link href="/getstarted">Get Started</Link>
             </Button>
             <Button variant="outline" size="3" color="green">
-              Learn More
+              <Link href="/learnmore">Learn More</Link>
             </Button>
           </div>
         </div>
