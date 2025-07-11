@@ -1,103 +1,92 @@
-// import { NextResponse } from "next/server";
-// import OpenAI from "openai";
+import { NextRequest, NextResponse } from "next/server";
+import { db } from "@/app/drizzle/db";
+import { user_generations } from "@/app/drizzle/schema";
+import { auth } from "@/lib/auth";
 
-// const apiKey = process.env.OPENAI_API_KEY;
+export async function POST(req: NextRequest) {
+  const session = await auth();
 
-// if (!apiKey) {
-//   throw new Error("Missing OPENAI_API_KEY in environment variables");
-// }
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
 
-// console.log("API KEY:", process.env.OPENAI_API_KEY);
+  const body = await req.json();
+  const { niche, contentType } = body;
 
-// const openai = new OpenAI({ apiKey });
+  if (!niche || !contentType) {
+    return NextResponse.json({ error: "Missing input" }, { status: 400 });
+  }
 
-// export async function POST(req: Request) {
-//   const { niche, contentType } = await req.json();
+  const promptMap: Record<string, string> = {
+    instagram_post:
+      "Write a 4-slide Instagram carousel post for a business in the {niche} niche. Each slide should be short, engaging, and designed to grab attention. End with a call-to-action on the last slide.",
 
-//   try {
-//     const chatCompletion = await openai.chat.completions.create({
-//       model: "gpt-3.5-turbo",
-//       messages: [
-//         {
-//           role: "system",
-//           content: `You're an expert content creator helping small businesses generate engaging ${contentType}.`,
-//         },
-//         {
-//           role: "user",
-//           content: `Generate a ${contentType} for a business in the ${niche} niche.`,
-//         },
-//       ],
-//     });
+    linkedin_post:
+      "Create a professional and insightful LinkedIn post for a business in the {niche} niche. Keep it informative, engaging, and value-driven.",
 
-//     return NextResponse.json({
-//       content: chatCompletion.choices[0].message.content,
-//     });
-//   } catch (error: any) {
-//     console.error("[OPENAI ERROR]", error);
+    email_newsletter:
+      "Generate a compelling email newsletter for a business in the {niche} niche. It should be warm, persuasive, and drive action.",
 
-//     if (error.status === 429) {
-//       return NextResponse.json(
-//         {
-//           error: "Rate limit or quota exceeded.",
-//         },
-//         { status: 429 }
-//       );
-//     }
+    product_description:
+      "Write a persuasive product description for a product in the {niche} niche. Highlight its benefits and make it irresistible.",
 
-//     return NextResponse.json(
-//       { error: error.message || "Failed to generate content." },
-//       { status: 500 }
-//     );
-//   }
-// }
+    youtube_script:
+      "Create a short and engaging YouTube video script introduction for a business in the {niche} niche. Hook the viewer in the first few lines.",
 
-import { NextResponse } from "next/server";
-import OpenAI from "openai";
+    post: "Generate an informative and interesting blog post introduction for a topic in the {niche} niche. Make it valuable and easy to read.",
 
-const apiKey = process.env.OPENAI_API_KEY;
-console.log("[DEBUG] Loaded OpenAI Key:", apiKey ? "Loaded" : "MISSING");
+    tweet:
+      "Write a catchy, punchy tweet for a business in the {niche} niche. Make it witty, relatable, or thought-provoking.",
+  };
 
-const openai = new OpenAI({
-  apiKey,
-});
+  const template = promptMap[contentType];
 
-export async function POST(req: Request) {
-  console.log("[DEBUG] Received POST request to /api/generate-content");
+  if (!template) {
+    return NextResponse.json(
+      { error: "Unsupported content type" },
+      { status: 400 }
+    );
+  }
 
-  const { niche, contentType } = await req.json();
-  console.log("[DEBUG] Inputs:", { niche, contentType });
+  const prompt = template.replace("{niche}", niche);
 
   try {
-    console.log("[DEBUG] Sending request to OpenAI...");
-
-    const chatCompletion = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [
-        {
-          role: "system",
-          content: `You're an expert content creator helping small businesses generate engaging ${contentType}.`,
-        },
-        {
-          role: "user",
-          content: `Generate a ${contentType} for a business in the ${niche} niche.`,
-        },
-      ],
+    const res = await fetch("https://api.cohere.ai/v1/generate", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.COHERE_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        model: "command",
+        prompt,
+        max_tokens: 500,
+        temperature: 0.7,
+      }),
     });
 
-    console.log("[DEBUG] OpenAI Response received");
+    const data = await res.json();
+    const content = data.generations?.[0]?.text || "No content generated.";
+
+    const saved = await db
+      .insert(user_generations)
+      .values({
+        user_id: session.user.id,
+        content,
+        niche,
+        content_type: contentType,
+      })
+      .returning();
 
     return NextResponse.json({
-      content: chatCompletion.choices[0].message.content,
+      content,
+      saved: saved[0],
     });
-  } catch (error: any) {
-    console.error("[OPENAI_ERROR]", error);
-
+  } catch (error) {
+    console.error("Cohere API error:", error);
     return NextResponse.json(
-      {
-        error:
-          error?.message ||
-          "Failed to generate content. Check API key and billing status.",
-      },
+      { error: "Failed to generate content" },
       { status: 500 }
     );
   }

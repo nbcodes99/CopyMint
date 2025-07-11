@@ -7,6 +7,7 @@ import classnames from "classnames";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { CgClose } from "react-icons/cg";
 import { useSession } from "next-auth/react";
+import "../globals.css";
 
 export default function Navbar() {
   const currentPath = usePathname();
@@ -15,7 +16,7 @@ export default function Navbar() {
 
   const links = [
     { label: "Home", href: "/" },
-    { label: "Features", href: "/features" },
+    { label: "Generate", href: "/generate" },
     { label: "Pricing", href: "/pricing" },
   ];
 
@@ -24,28 +25,27 @@ export default function Navbar() {
   }
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50">
-      <div className="absolute inset-0 pointer-events-none [background-image:linear-gradient(transparent_39px,_#2a2a2a_40px),_linear-gradient(90deg,_transparent_39px,_#2a2a2a_40px)] [background-size:40px_40px] opacity-50 animate-pulse-slow !bg-transparent z-0" />
-
-      <nav className="flex items-center justify-between px-6 py-10 md:px-24">
+    <header className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 w-[95%] max-w-5xl">
+      <nav className=" relative flex items-center justify-between px-6 py-3 bg-black/10 border border-zinc-700 rounded-xl backdrop-blur-md">
         <Link
           href="/"
           className="text-zinc-200 font-bold text-base md:text-xl hidden md:block"
         >
-          Copy<span className="text-green-600">Mint</span>
+          Copy<span className="text-orange-500">Mint</span>
         </Link>
 
-        <ul className={isOpen ? "open animate-scaleIn" : ""}>
+        <ul className={isOpen ? "open" : ""}>
           {links.map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={classnames({
-                  "text-green-800 border-b-2 border-green-800 pb-1 translate-y-10":
-                    link.href === currentPath,
-                  "text-zinc-100": link.href !== currentPath,
-                  "transition-colors font-medium": true,
-                })}
+                className={classnames(
+                  "transition-colors font-medium hover:text-orange-400",
+                  {
+                    "text-orange-500 border-b border-orange-500":
+                      link.href === currentPath,
+                  }
+                )}
               >
                 {link.label}
               </Link>
@@ -54,20 +54,26 @@ export default function Navbar() {
         </ul>
 
         {status === "loading" ? null : session?.user ? (
-          <Link href="/dashboard" className="text-base underline text-zinc-200">
+          <Link
+            href="/dashboard"
+            className="z-20 text-sm px-4 py-1.5 bg-white/10 text-white border border-zinc-600 rounded-md hover:bg-white/20 transition"
+          >
             Dashboard
           </Link>
         ) : (
-          <Link href="/signin" className="text-base underline text-zinc-200">
+          <Link
+            href="/getstarted"
+            className="z-20 text-sm px-4 py-1.5 bg-white/10 text-white border border-zinc-600 rounded-md hover:bg-white/20 transition"
+          >
             Get Started
           </Link>
         )}
 
-        <div className="block md:hidden z-20" onClick={toggleNavbar}>
+        <div className="z-20 hamburger" onClick={toggleNavbar}>
           {isOpen ? (
-            <CgClose className="transition-colors text-3xl" />
+            <CgClose className="transition-colors text-3xl text-white" />
           ) : (
-            <RxHamburgerMenu className="transition-colors text-3xl" />
+            <RxHamburgerMenu className="transition-colors text-3xl text-white" />
           )}
         </div>
       </nav>

@@ -67,3 +67,21 @@ export const accounts = pgTable("accounts", {
   created_at: timestamp("created_at").defaultNow().notNull(),
   updated_at: timestamp("updated_at").defaultNow().notNull(),
 });
+
+export const user_generations = pgTable("user_generations", {
+  id: uuid("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
+
+  user_id: uuid("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+
+  niche: text("niche").notNull(),
+  content_type: text("content_type").notNull(),
+  content: text("content").notNull(),
+
+  date: timestamp("date", { mode: "date" }).defaultNow().notNull(), // date-only for filtering
+
+  created_at: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+});

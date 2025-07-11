@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Theme } from "@radix-ui/themes";
+import { Theme, ThemePanel } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import SessionWrapper from "./components/SessionWrapper";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,9 +37,11 @@ export default function RootLayout({
       >
         <SessionWrapper>
           <Navbar />
-          <Theme appearance="dark" accentColor="grass" grayColor="sage">
-            <main>{children}</main>
+          <Theme appearance="dark" accentColor="orange" grayColor="sage">
+            <main className="transition-colors">{children}</main>
+            {/* <ThemePanel /> */}
           </Theme>
+          <Footer />
         </SessionWrapper>
       </body>
     </html>

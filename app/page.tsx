@@ -1,16 +1,14 @@
+import FaqSection from "./components/FaqSection";
 import FeatureCard from "./components/FeatureCard";
 import HeroSection from "./components/HeroSection";
 
 export default function Home() {
   return (
     <>
-      <section className="pt-16 md:pt-24 w-full">
+      <section className="pt-16 md:pt-24 w-full bg-black">
         <HeroSection />
       </section>
-      <section className="relative z-[999] flex flex-col items-center w-full py-10 px-4">
-        <div className="absolute inset-0 pointer-events-none [background-image:linear-gradient(transparent_39px,_#2a2a2a_40px),_linear-gradient(90deg,_transparent_39px,_#2a2a2a_40px)] [background-size:40px_40px] opacity-50 animate-pulse-slow !bg-transparent z-0" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,255,0,0.1),_transparent_60%)] pointer-events-none z-0" />
-
+      <section className="relative z-[999] flex flex-col bg-black/60 items-center w-full py-10 px-4">
         <h1 className="text-4xl font-bold text-zinc-200 relative mb-6">
           Features
         </h1>
@@ -35,9 +33,8 @@ export default function Home() {
           />
         </div>
       </section>
-      <section className="flex flex-col items-center w-full py-10 px-4">
-        <h1 className="font-bold text-4xl text-zinc-200 mb-6">FAQ</h1>
-        
+      <section className="flex flex-col bg-black/80 items-center w-full py-10 px-4">
+        <FaqSection />
       </section>
     </>
   );
