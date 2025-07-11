@@ -1,7 +1,10 @@
 "use client";
 
-import { Card, Text } from "@radix-ui/themes";
 import { useEffect, useState } from "react";
+import * as Dialog from "@radix-ui/react-dialog";
+import DashboardCard from "../components/DashboardCard";
+import { Spinner } from "@radix-ui/themes";
+import { IoCloseSharp } from "react-icons/io5";
 
 type Generation = {
   id: number;
@@ -11,7 +14,7 @@ type Generation = {
   created_at: string;
 };
 
-export default function DashboardPage() {
+export default function Dashboard() {
   const [generations, setGenerations] = useState<Generation[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedGeneration, setSelectedGeneration] =
@@ -33,7 +36,13 @@ export default function DashboardPage() {
     fetchGenerations();
   }, []);
 
-  if (loading) return <p className="p-4">Loading...</p>;
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Spinner size="3" />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -42,54 +51,51 @@ export default function DashboardPage() {
       </h1>
       <section className="p-6 max-w-4xl flex flex-col mx-auto">
         {generations.length === 0 ? (
-          <p>No content generated yet.</p>
+          <p className="text-center">No content generated yet.</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {generations.map((gen) => (
-              <Card
+              <Dialog.Root
                 key={gen.id}
-                variant="surface"
-                className="cursor-pointer transition hover:shadow-md p-10"
-                onClick={() => setSelectedGeneration(gen)}
+                open={selectedGeneration?.id === gen.id}
+                onOpenChange={(isOpen) =>
+                  setSelectedGeneration(isOpen ? gen : null)
+                }
               >
-                <Text as="div" size="1" color="gray" className="mb-1">
-                  {gen.content_type.replace("_", " ").toUpperCase()} —{" "}
-                  {new Date(gen.created_at).toLocaleString()}
-                </Text>
-                <Text as="div" size="2" weight="medium" className="mb-2">
-                  Niche: {gen.niche}
-                </Text>
-                <Text as="p" size="2" color="gray" className="line-clamp-3">
-                  {gen.content}
-                </Text>
-              </Card>
+                <Dialog.Trigger asChild>
+                  <div>
+                    <DashboardCard
+                      content={gen.content}
+                      contentType={gen.content_type}
+                      niche={gen.niche}
+                      createdAt={gen.created_at}
+                    />
+                  </div>
+                </Dialog.Trigger>
+
+                <Dialog.Portal>
+                  <Dialog.Overlay className="fixed inset-0 bg-black/60 z-50" />
+                  <Dialog.Content className="fixed z-50 top-1/2 left-1/2 w-full max-w-xl sm:mx-4 max-h-[90vh] overflow-y-auto bg-zinc-900 p-4 sm:p-6 sm:rounded-xl rounded-none -translate-x-1/2 -translate-y-1/2 focus:outline-none">
+                    <div className="flex justify-between items-center mb-4 px-6 pt-6">
+                      <Dialog.Title className="text-lg font-semibold text-white">
+                        Full Content
+                      </Dialog.Title>
+                      <Dialog.Close className="text-gray-400 hover:text-white text-2xl leading-none">
+                        <IoCloseSharp />
+                      </Dialog.Close>
+                    </div>
+
+                    <DashboardCard
+                      content={gen.content}
+                      contentType={gen.content_type}
+                      niche={gen.niche}
+                      createdAt={gen.created_at}
+                      full
+                    />
+                  </Dialog.Content>
+                </Dialog.Portal>
+              </Dialog.Root>
             ))}
-          </div>
-        )}
-
-        {selectedGeneration && (
-          <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white p-6 rounded-xl shadow-lg max-w-xl w-full relative">
-              <button
-                onClick={() => setSelectedGeneration(null)}
-                className="absolute top-2 right-3 text-gray-500 hover:text-gray-700 text-xl"
-              >
-                &times;
-              </button>
-
-              <div className="text-sm text-gray-500 mb-1">
-                {selectedGeneration.content_type
-                  .replace("_", " ")
-                  .toUpperCase()}{" "}
-                — {new Date(selectedGeneration.created_at).toLocaleString()}
-              </div>
-              <div className="text-sm font-medium mb-2">
-                Niche: {selectedGeneration.niche}
-              </div>
-              <pre className="whitespace-pre-wrap text-sm text-gray-800">
-                {selectedGeneration.content}
-              </pre>
-            </div>
           </div>
         )}
       </section>

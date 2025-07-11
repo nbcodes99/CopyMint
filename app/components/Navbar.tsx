@@ -56,14 +56,22 @@ export default function Navbar() {
         {status === "loading" ? null : session?.user ? (
           <Link
             href="/dashboard"
-            className="z-20 text-sm px-4 py-1.5 bg-white/10 text-white border border-zinc-600 rounded-md hover:bg-white/20 transition"
+            className={classnames(
+              "z-20 text-sm px-4 py-1.5 border rounded-md transition font-medium",
+              {
+                "bg-white/10 text-white border-zinc-600 hover:bg-white/20":
+                  currentPath !== "/dashboard",
+                "bg-orange-500 text-white border-orange-500":
+                  currentPath === "/dashboard",
+              }
+            )}
           >
             Dashboard
           </Link>
         ) : (
           <Link
             href="/getstarted"
-            className="z-20 text-sm px-4 py-1.5 bg-white/10 text-white border border-zinc-600 rounded-md hover:bg-white/20 transition"
+            className="z-20 text-sm font-medium px-4 py-1.5 bg-white/10 text-white border border-zinc-600 rounded-md hover:bg-white/20 transition"
           >
             Get Started
           </Link>
