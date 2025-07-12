@@ -26,7 +26,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 w-[95%] max-w-5xl">
-      <nav className=" relative flex items-center justify-between px-6 py-3 bg-black/10 border border-zinc-700 rounded-xl backdrop-blur-md">
+      <nav className="navbar relative flex items-center animate-slide-down justify-between px-6 py-3 bg-black/10 border border-zinc-700 rounded-xl backdrop-blur-md">
         <Link
           href="/"
           className="text-zinc-200 font-bold text-base md:text-xl hidden md:block"

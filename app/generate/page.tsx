@@ -40,7 +40,7 @@ export default function GenerateContentPage() {
   }
 
   return (
-    <div className="max-w-xl mx-auto p-6 pt-40">
+    <div className="max-w-xl mx-auto p-6 pt-40 animate-bounceIn">
       <div
         className="flex flex-col items-center gap-6 w-full p-8 rounded-xl bg-zinc-900 shadow-2xl"
         style={{

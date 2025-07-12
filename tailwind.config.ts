@@ -34,12 +34,19 @@ const config: Config = {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-8px)" },
         },
-        gridMove: {
-          "0%": { backgroundPosition: "0 0, 0 0, 0 0" },
-          "100%": { backgroundPosition: "40px 40px, 40px 0, 0 40px" },
+        zoomIn: {
+          "0%": { transform: "scale(0.1)", opacity: "0" },
+          "100%": { transform: "scale(1)", opacity: "1" },
+        },
+        bounceIn: {
+          "0%": { transform: "scale(0.5)", opacity: "0" },
+          "50%": { transform: "scale(1.2)", opacity: "1" },
+          "100%": { transform: "scale(1)", opacity: "1" },
         },
       },
       animation: {
+        bounceIn: "bounceIn 0.7s ease forwards",
+        zoomIn: "zoomIn 0.3s ease forwards",
         "fade-in": "fadeIn 0.5s ease-in-out",
         "slide-up": "slideUp 0.5s ease-out",
         "slide-down": "slideDown 0.5s ease-out",

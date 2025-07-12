@@ -28,21 +28,21 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
 }
-ul {
+.hamburger {
+  display: none;
+}
+
+.navbar ul {
   display: flex;
   gap: 20px;
   font-size: 15px;
 }
 
-.hamburger {
-  display: none;
-}
-
-ul.open {
+.navbar ul.open {
   display: flex;
 }
 @media screen and (max-width: 768px) {
-  ul {
+  .navbar ul {
     display: none;
     flex-direction: column;
     position: absolute;
@@ -59,7 +59,7 @@ ul.open {
     width: 100%;
   }
 
-  .hamburger {
+  .navbar .hamburger {
     position: absolute;
     display: block;
     cursor: pointer;

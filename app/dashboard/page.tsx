@@ -46,8 +46,8 @@ export default function Dashboard() {
 
   return (
     <>
-      <h1 className="text-2xl font-semibold mb-4 text-center pt-32">
-        Dashboard
+      <h1 className="text-2xl font-semibold md:mb-4 text-center pt-32">
+        Dash<span className="text-orange-500">board</span>
       </h1>
       <section className="p-6 max-w-4xl flex flex-col mx-auto">
         {generations.length === 0 ? (
