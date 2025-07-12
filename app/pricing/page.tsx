@@ -1,10 +1,17 @@
+"use client";
 import { GrStatusGood } from "react-icons/gr";
 import { MdOutlineCancel } from "react-icons/md";
+import { motion } from "framer-motion";
 
 export default function Pricing() {
   return (
     <section className="pt-36 flex flex-col items-center px-4 text-zinc-200 pb-20">
-      <div className="text-center mb-12">
+      <motion.div
+        className="text-center mb-12"
+        initial={{ opacity: 0, y: -40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
         <h1 className="text-orange-500 text-sm uppercase tracking-wide font-semibold">
           Choose Your Plan
         </h1>
@@ -15,11 +22,20 @@ export default function Pricing() {
           Start free. Upgrade for more generations, faster speed, and premium
           features.
         </p>
-      </div>
+      </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4 w-full h-fit">
-        {/* Free Plan */}
-        <div className="bg-zinc-900 rounded-xl flex flex-col p-6 border border-zinc-700 h-fit">
+      <motion.div
+        className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4 w-full h-fit"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+      >
+        <motion.div
+          className="bg-zinc-900 rounded-xl flex flex-col p-6 border border-zinc-700 h-fit"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
           <h3 className="text-xl font-semibold mb-1">Free</h3>
           <p className="text-orange-400 text-3xl font-bold mb-2">$0</p>
           <p className="text-zinc-400 mb-6">Perfect to get started.</p>
@@ -49,10 +65,14 @@ export default function Pricing() {
           <button className="w-full py-2 bg-orange-500 rounded-md font-medium">
             Select
           </button>
-        </div>
+        </motion.div>
 
-        {/* Standard Plan */}
-        <div className="bg-zinc-800 rounded-xl p-6 border-2 border-orange-500 shadow-lg relative">
+        <motion.div
+          className="bg-zinc-800 rounded-xl p-6 border-2 border-orange-500 shadow-lg relative"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
           <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-orange-600 text-white text-xs px-3 py-1 rounded-full">
             Most Popular
           </div>
@@ -85,12 +105,16 @@ export default function Pricing() {
             </li>
           </ul>
           <button className="w-full py-2 bg-orange-500 hover:bg-orange-600 rounded-md font-semibold">
-            Get Started
+            Select
           </button>
-        </div>
+        </motion.div>
 
-        {/* Premium Plan */}
-        <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-700">
+        <motion.div
+          className="bg-zinc-900 rounded-xl p-6 border border-zinc-700"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+        >
           <h3 className="text-xl font-semibold mb-1">Premium</h3>
           <p className="text-orange-400 text-3xl font-bold mb-2">$14.99</p>
           <p className="text-zinc-400 mb-6">
@@ -122,8 +146,8 @@ export default function Pricing() {
           <button className="w-full py-2 bg-orange-500 rounded-md font-medium">
             Select
           </button>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
