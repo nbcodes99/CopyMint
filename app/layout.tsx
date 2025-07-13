@@ -6,7 +6,6 @@ import "@radix-ui/themes/styles.css";
 import SessionWrapper from "./components/SessionWrapper";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import NavbarSpacer from "./components/NavbarSpacer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
