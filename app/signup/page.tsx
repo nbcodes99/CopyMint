@@ -45,7 +45,7 @@ export default function SignUp() {
     <section className="pb-24 pt-36 px-8 md:px-20 flex flex-col items-center w-full">
       <div className="flex flex-col items-center px-8 md:px-24 py-10 bg-zinc-900 shadow-sm rounded-md animate-bounceIn">
         <h1 className="font-bold text-2xl md:text-4xl text-zinc-300 mb-2">
-          Create <span className="text-amber-600">Account</span>
+          Sign Up
         </h1>
         <p className="text-sm font-medium text-zinc-600 text-center mb-8">
           Enter details to create your account

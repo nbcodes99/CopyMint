@@ -90,14 +90,6 @@ export default function GenerateContentPage() {
         {output && (
           <>
             <h1 className="text-2xl text-zinc-500 font-semibold">Output</h1>
-            {/* <div
-              className="mt-4 p-4 bg-zinc-900 rounded-md w-full max-w-md h-fit"
-              style={{
-                boxShadow: "0 4px 30px rgba(255, 115, 0, 0.3)",
-              }}
-            >
-              <p className="text-zinc-600 text-sm">{output}</p>
-            </div> */}
             <div
               className="mt-4 p-6 rounded-md w-full max-w-md h-fit overflow-auto"
               style={{
